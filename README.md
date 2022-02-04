@@ -31,18 +31,35 @@ export default function App(){
 
 Hello.js
 ```jsx
-import React, {useEffect} from 'react'
-import {setLoading} from 'react-hook-loading'
+import React  from 'react'
+import { setLoading, asyncLoading } from 'react-hot-loading'
 
 export default () => {
-  useEffect(() => {
-    setLoading(true)    // show modal loading
-    setTimeout(() => {
-      setLoading(false) // hide modal loading
-    }, 2000)
-  }, [])
+  const onClick = () =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, 2000)
+    })
 
-  return <div>hello world</div>
+  return (
+    <div>
+      <button
+        onClick={async () => {
+          setLoading(true)
+          await onClick()
+          setLoading(false)
+        }}
+      >
+        usage1
+      </button>
+      <button
+        onClick={asyncLoading(onClick)}
+      >
+        usage2
+      </button>
+    </div>
+  )
 }
 ```
 
