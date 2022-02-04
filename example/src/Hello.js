@@ -1,15 +1,30 @@
-import React, {useEffect} from 'react'
-import { setLoading} from 'react-hot-loading'
+import React  from 'react'
+import { setLoading, asyncLoading } from 'react-hot-loading'
 
 export default () => {
-  console.log('hello render')
-  useEffect(() => {
-    console.log('hello useEffect')
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
-  }, [])
+  const onClick = () =>
+    new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, 2000)
+    })
 
-  return <div>hello world!!</div>
+  return (
+    <div>
+      <button
+        onClick={async () => {
+          setLoading(true)
+          await onClick()
+          setLoading(false)
+        }}
+      >
+        usage1
+      </button>
+      <button
+        onClick={asyncLoading(onClick)}
+      >
+        usage2
+      </button>
+    </div>
+  )
 }
