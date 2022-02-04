@@ -7,12 +7,12 @@ const dec = num => {
   }
   return --num
 }
+
 const inc = num => ++num
 
 let setLoadingFn = null
 
 export function LoadingProvider(props) {
-  console.log('loadingProvider render')
   const [count, setCount] = useState(0)
   const loading = Boolean(count)
 
@@ -33,5 +33,16 @@ export const setLoading = start => {
     throw Error('`setLoadingFn` is not initialized yet')
   }
 }
+
+export const asyncLoading =
+  fn =>
+  async (...args) => {
+    try {
+      setLoading(true)
+      return await fn(...args)
+    } finally {
+      setLoading(false)
+    }
+  }
 
 export const DefaultLoading = Loading
