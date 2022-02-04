@@ -5,6 +5,7 @@
   "author": "min9nim",
   "license": "MIT",
   "repository": "min9nim/react-hot-loading",
+  "keywords": ["async", "loading","react"],
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
