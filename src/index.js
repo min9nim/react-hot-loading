@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Loading from './Loading'
 
 const dec = num => {
@@ -16,9 +16,9 @@ export function LoadingProvider(props) {
   const [count, setCount] = useState(0)
   const loading = Boolean(count)
 
-  if (!setLoadingFn) {
+  useEffect(() => {
     setLoadingFn = start => (start ? setCount(inc) : setCount(dec))
-  }
+  })
 
   if (!loading) {
     return null
